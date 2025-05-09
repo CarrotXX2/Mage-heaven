@@ -801,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5251150474968179848, guid: 8fed1fc261173b74aa34bcac0d48a5b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.550269
+      value: 4.6
       objectReference: {fileID: 0}
     - target: {fileID: 5251150474968179848, guid: 8fed1fc261173b74aa34bcac0d48a5b9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7224,6 +7224,14 @@ PrefabInstance:
     - target: {fileID: 6681179314026852832, guid: 60700d3b160b3494c8a2412ffaf2d251, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735549107070060385, guid: 60700d3b160b3494c8a2412ffaf2d251, type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: NaN
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735549107070060385, guid: 60700d3b160b3494c8a2412ffaf2d251, type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 8154037814678292021, guid: 60700d3b160b3494c8a2412ffaf2d251, type: 3}
       propertyPath: LightsModule.enabled
