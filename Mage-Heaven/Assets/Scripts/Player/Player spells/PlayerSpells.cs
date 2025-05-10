@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public enum WandStates
@@ -13,10 +14,10 @@ public class PlayerSpells : MonoBehaviour
   // A barrier with the left controller
   // Shooting projectiles with the right
   // The wand has two states, one where you can shoot projectiles and one where it functions as a torch 
-  
-  [Header("General")]
-  [SerializeField] private float currentMana;
-  [SerializeField] private float maxMana;
+
+  [Header("General")] // Mana resource in vr is kinda weird so probably won't use this
+  [SerializeField] private Transform _rightHand;
+  private Transform target;
   
   [Header("Barrier")]
   [SerializeField] private float barrierCost; // In seconds
@@ -30,8 +31,12 @@ public class PlayerSpells : MonoBehaviour
   [SerializeField] private float projectileCost; // In seconds
   [SerializeField] private float torchCost; // In seconds
   
+  private bool _litTorch = false;
+  
   // I want the wand to cast projectiles through motion to make the game feel more interactive
-  // The projectiles will have homing based on what the target was looked at while casting
+  // The projectiles will have homing based on what target was looked at while casting
+  [SerializeField] private GameObject _projectile;
+  [SerializeField] private Transform _projectileSpawnPoint;
   
   [SerializeField] private Transform lastProjectileSpawn; // Keep track of the last point that shot a projectile
   [SerializeField] private float projectileTreshold; // Difference in distance needed for next projectile to spawn 
@@ -41,7 +46,7 @@ public class PlayerSpells : MonoBehaviour
   {
       if (isUsinBarrier)
       {
-          HandleBarrier();
+          // HandleBarrier();
       }
 
       if (isUsingWand)
@@ -64,16 +69,6 @@ public class PlayerSpells : MonoBehaviour
   {
       isUsinBarrier = false;
       barrier.SetActive(false);
-  }
-
-  private void HandleBarrier()
-  {
-      currentMana -= barrierCost * Time.deltaTime;
-          
-      if (currentMana <= 0)
-      {
-          StopBarrier();
-      }
   }
 
   #endregion
@@ -108,9 +103,17 @@ public class PlayerSpells : MonoBehaviour
       switch (wandState)
       {
           case WandStates.Torch:
+              _litTorch = true;
+              // Increase fire particle 
+              // Torch can now light other torches 
+              // Fire sfx loop
               break;
           case WandStates.ArcaneProjectile:
-              // do nothing ;P
+              lastProjectileSpawn = _rightHand;
+              ShootProjectile();
+              
+              // Increase magic aura to notify player you can shoot projectiles 
+              // magic aura sfx 
               break;
       }
   }
@@ -125,10 +128,10 @@ public class PlayerSpells : MonoBehaviour
       switch (wandState)
       {
           case WandStates.Torch:
-              
+              // No need for this, logic is in OnTriggerEnter
               break;
           case WandStates.ArcaneProjectile:
-              
+              WandMotionDetection();
               break;
       }
   }
@@ -136,7 +139,26 @@ public class PlayerSpells : MonoBehaviour
   // When wand is being used and player waves with the wand instantiate projectiles 
   private void WandMotionDetection()
   {
+     float distance = Vector3.Distance(lastProjectileSpawn.position, _rightHand.position);
+
+     if (distance < projectileTreshold)
+     {
+         ShootProjectile();
+     }
+  }
+
+  private void ShootProjectile()
+  {
+      GameObject projectile = Instantiate(_projectile, _projectileSpawnPoint.position, quaternion.identity);
       
+      projectile.GetComponent<Projectile>().target = gameObject.GetComponent<TargetFinder>().FindBestTarget();
+      // Hapticfeedback
+  }
+  
+  private void OnTriggerEnter(Collider other)
+  {
+      // if(other == torch)
+      // Light other torches
   }
   #endregion
 }

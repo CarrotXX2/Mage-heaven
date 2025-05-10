@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour 
 {
      public int[] hitPoints; // Amount of time player is allowed to be hit before he is game over
      private int hitPointsIndex;
