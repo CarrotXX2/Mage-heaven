@@ -10,13 +10,15 @@ public enum WandStates
 }
 public class PlayerSpells : MonoBehaviour
 {
-  // Player has two spells that can be cast 
+  // Player has two spells that can be cast  
   // A barrier with the left controller
   // Shooting projectiles with the right
   // The wand has two states, one where you can shoot projectiles and one where it functions as a torch 
 
-  [Header("General")] // Mana resource in vr is kinda weird so probably won't use this
+  [Header("General")] 
   [SerializeField] private Transform _rightHand;
+  [SerializeField] private Rigidbody _rbRightHand; // Give the projectile velocity of player 
+  
   private Transform target;
   
   [Header("Barrier")]
@@ -28,14 +30,13 @@ public class PlayerSpells : MonoBehaviour
   [Header("Wand Spells")] 
   private WandStates wandState;
   
-  [SerializeField] private float projectileCost; // In seconds
-  [SerializeField] private float torchCost; // In seconds
-  
   private bool _litTorch = false;
   
   // I want the wand to cast projectiles through motion to make the game feel more interactive
   // The projectiles will have homing based on what target was looked at while casting
   [SerializeField] private GameObject _projectile;
+  [SerializeField] private GameObject _fireProjectile;
+  
   [SerializeField] private Transform _projectileSpawnPoint;
   
   [SerializeField] private Transform lastProjectileSpawn; // Keep track of the last point that shot a projectile
@@ -104,13 +105,14 @@ public class PlayerSpells : MonoBehaviour
       {
           case WandStates.Torch:
               _litTorch = true;
+              ShootProjectile(_fireProjectile);
               // Increase fire particle 
               // Torch can now light other torches 
               // Fire sfx loop
               break;
           case WandStates.ArcaneProjectile:
               lastProjectileSpawn = _rightHand;
-              ShootProjectile();
+              ShootProjectile(_projectile);
               
               // Increase magic aura to notify player you can shoot projectiles 
               // magic aura sfx 
@@ -128,30 +130,35 @@ public class PlayerSpells : MonoBehaviour
       switch (wandState)
       {
           case WandStates.Torch:
-              // No need for this, logic is in OnTriggerEnter
+              WandMotionDetection(_fireProjectile);
               break;
           case WandStates.ArcaneProjectile:
-              WandMotionDetection();
+              WandMotionDetection(_projectile);
               break;
       }
   }
   
   // When wand is being used and player waves with the wand instantiate projectiles 
-  private void WandMotionDetection()
+  private void WandMotionDetection(GameObject projectile)
   {
      float distance = Vector3.Distance(lastProjectileSpawn.position, _rightHand.position);
 
      if (distance < projectileTreshold)
      {
-         ShootProjectile();
+         ShootProjectile(projectile);
      }
   }
 
-  private void ShootProjectile()
+  private void ShootProjectile(GameObject projectile)
   {
-      GameObject projectile = Instantiate(_projectile, _projectileSpawnPoint.position, quaternion.identity);
+      GameObject currentprojectile = Instantiate(projectile, _projectileSpawnPoint.position, quaternion.identity);
       
+      // Find Suitable target
       projectile.GetComponent<Projectile>().target = gameObject.GetComponent<TargetFinder>().FindBestTarget();
+      
+      // Initial force from swinging the wand 
+      projectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
+      
       // Hapticfeedback
   }
   
