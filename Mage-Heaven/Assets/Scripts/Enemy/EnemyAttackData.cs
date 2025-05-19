@@ -9,4 +9,5 @@ public class EnemyAttackData : ScriptableObject
     
     public AnimationClip clip; // Animation that gets played 
     public int weight; // How likely the enemy is gonna use this attack 
+    public bool parryAble; // Check for parryable moves 
 }

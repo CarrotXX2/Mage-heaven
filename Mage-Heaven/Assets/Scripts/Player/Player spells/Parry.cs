@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ParryDirection
@@ -14,16 +11,18 @@ public class Parry : MonoBehaviour
     // That way they can perform a parry and parry the straight punches from the enemy to the side
 
     #region Variables
-
-    [Header("Parry Detection")]
-    [SerializeField] private Transform leftHand;
-    [SerializeField] private Transform rightHand;
-
-    private Vector3 previousLeftHandPos;
-    private Vector3 previousRightHandPos;
+    [Header("Enemy")] 
+    [SerializeField] private EnemyAI _currentEnemyAI;
     
-    [SerializeField] private float parrySpeedThreshold; // How fast the player has to swipe their hands
-    [SerializeField] private float maxVerticalMovement; // Keep the vertical movement to a minimum
+    [Header("Parry Detection")]
+    [SerializeField] private Transform _leftHand;
+    [SerializeField] private Transform _rightHand;
+
+    private Vector3 _previousLeftHandPos;
+    private Vector3 _previousRightHandPos;
+    
+    [SerializeField] private float _parrySpeedThreshold; // How fast the player has to swipe their hands
+    [SerializeField] private float _maxVerticalMovement; // Keep the vertical movement to a minimum
 
     [Header("Parry")] 
     // The IK target is in front of the player with the pivot point on the player 
@@ -40,8 +39,8 @@ public class Parry : MonoBehaviour
     #region Unity Methods
     private void Start()
     {
-        previousLeftHandPos = leftHand.position;
-        previousRightHandPos = rightHand.position;
+        _previousLeftHandPos = _leftHand.position;
+        _previousRightHandPos = _rightHand.position;
     }
 
     private void Update()
@@ -54,17 +53,17 @@ public class Parry : MonoBehaviour
     #region DetectParry
     private void DetectParry()
     {
-        Vector3 leftDelta = leftHand.position - previousLeftHandPos;
-        Vector3 rightDelta = rightHand.position - previousRightHandPos;
+        Vector3 leftDelta = _leftHand.position - _previousLeftHandPos;
+        Vector3 rightDelta = _rightHand.position - _previousRightHandPos;
 
         // Focus mainly on horizontal (X axis) movement
         float leftX = leftDelta.x;
         float rightX = rightDelta.x;
 
-        bool bothMovingRight = leftX > parrySpeedThreshold && rightX > parrySpeedThreshold;
-        bool bothMovingLeft = leftX < -parrySpeedThreshold && rightX < -parrySpeedThreshold;
+        bool bothMovingRight = leftX > _parrySpeedThreshold && rightX > _parrySpeedThreshold;
+        bool bothMovingLeft = leftX < -_parrySpeedThreshold && rightX < -_parrySpeedThreshold;
 
-        bool minimalVerticalMovement = Mathf.Abs(leftDelta.y) < maxVerticalMovement && Mathf.Abs(rightDelta.y) < maxVerticalMovement;
+        bool minimalVerticalMovement = Mathf.Abs(leftDelta.y) < _maxVerticalMovement && Mathf.Abs(rightDelta.y) < _maxVerticalMovement;
 
         if (minimalVerticalMovement)
         {
@@ -80,21 +79,23 @@ public class Parry : MonoBehaviour
             }
         }
 
-        previousLeftHandPos = leftHand.position;
-        previousRightHandPos = rightHand.position;
+        _previousLeftHandPos = _leftHand.position;
+        _previousRightHandPos = _rightHand.position;
     }
     #endregion
     private void PerformParry(ParryDirection direction)
     {
+        if (!_currentEnemyAI.isParryAble) return;
+        
         if (direction == ParryDirection.Left)
         {
             // Do left parry
-            // Rotate the IK pivot to the left 
+            // Move the IK to the left 
         }
         else if (direction == ParryDirection.Right)
         {
             // Do right parry
-            // Rotate the IK pivot to the right
+            // Move the IK to the right
         }
     }
 }

@@ -154,10 +154,10 @@ public class PlayerSpells : MonoBehaviour
       GameObject currentprojectile = Instantiate(projectile, _projectileSpawnPoint.position, quaternion.identity);
       
       // Find Suitable target
-      projectile.GetComponent<Projectile>().target = gameObject.GetComponent<TargetFinder>().FindBestTarget();
+      currentprojectile.GetComponent<Projectile>().target = gameObject.GetComponent<TargetFinder>().FindBestTarget();
       
       // Initial force from swinging the wand 
-      projectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
+      currentprojectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
       
       // Hapticfeedback
   }

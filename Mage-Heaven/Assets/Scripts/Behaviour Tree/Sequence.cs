@@ -29,6 +29,8 @@ namespace BehaviourTree
                          return state;
                 }
             }
+
+            return NodeState.FAILURE;
         }
     }
 }

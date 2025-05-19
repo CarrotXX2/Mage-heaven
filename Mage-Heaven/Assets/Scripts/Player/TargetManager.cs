@@ -6,8 +6,7 @@ using UnityEngine;
 public class TargetManager : MonoBehaviour
 {
     public static TargetManager Instance { get; private set; }
-
-    private List<ITargetable> targets = new List<ITargetable>();
+    public List<ITargetable> targets = new List<ITargetable>();
 
     private void Awake()
     {
@@ -18,11 +17,13 @@ public class TargetManager : MonoBehaviour
         }
         Instance = this;
     }
-
+    
     public void RegisterTarget(ITargetable target)
     {
         if (!targets.Contains(target))
             targets.Add(target);
+        
+        print(target);
     }
 
     public void UnregisterTarget(ITargetable target)

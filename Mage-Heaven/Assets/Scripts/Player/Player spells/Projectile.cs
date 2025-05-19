@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -10,8 +7,8 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private float _homingStrength;
     [SerializeField] private float _maxSpeed;
+    
     private Rigidbody _rb;
-
     private void Start() // Initialize object 
     {
         _rb = GetComponent<Rigidbody>();
@@ -31,6 +28,14 @@ public class Projectile : MonoBehaviour
         if (_rb.velocity.magnitude > _maxSpeed)
         {
             _rb.velocity = _rb.velocity.normalized * _maxSpeed;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.TakeDamage();
         }
     }
 }

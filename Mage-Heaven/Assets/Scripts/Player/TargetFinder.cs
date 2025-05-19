@@ -1,29 +1,68 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TargetFinder : MonoBehaviour
 {
+    [SerializeField] private TickTimer _tickTimer;
+    
     [SerializeField] private float _maxDistance;
     [SerializeField] private float _fieldOfView;
 
     private Camera mainCamera;
 
+    private Transform _currentTarget;
+
+    private void OnEnable()
+    {
+        _tickTimer.OnTick += FindCurrentTarget;
+    }
+
+    private void OnDisable()
+    {
+        _tickTimer.OnTick -= FindCurrentTarget;
+    }
+
     private void Start()
     {
         mainCamera = Camera.main;
     }
-
+    
     public void Button()
     {
         FindBestTarget();
     }
 
+    private void FindCurrentTarget() // This target is used for enabling particles on the targets themselves 
+    {
+        Transform newTarget = FindBestTarget();
+        
+        print(newTarget);
+        if (_currentTarget == newTarget) return;
+
+        // Turn off particle on previous target
+        if (_currentTarget != null)
+        {
+            var oldTargetable = _currentTarget.GetComponent<TargetableObject>();
+            if (oldTargetable != null)
+                oldTargetable.OnTargetLost();
+        }
+
+        _currentTarget = newTarget;
+
+        // Turn on particle on new target
+        if (_currentTarget != null)
+        {
+            var newTargetable = _currentTarget.GetComponent<TargetableObject>();
+            if (newTargetable != null)
+                newTargetable.OnCurrentTarget();
+        }
+    }
+
     public Transform FindBestTarget()
     {
         var targets = TargetManager.Instance.GetTargets();
-
+        Debug.Log("Evaluating targets: " + targets.Count);
+        
         Transform bestTarget = null;
         float smallestAngle = float.MaxValue;
 

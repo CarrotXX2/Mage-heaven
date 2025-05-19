@@ -5,6 +5,8 @@ using UnityEngine;
 public class TargetableObject : MonoBehaviour, ITargetable
 {
     public Transform TargetTransform => transform;
+    [SerializeField] private GameObject particleEffect;
+    
     private void OnEnable()
     {
         TargetManager.Instance?.RegisterTarget(this);
@@ -13,5 +15,17 @@ public class TargetableObject : MonoBehaviour, ITargetable
     private void OnDisable()
     {
         TargetManager.Instance?.UnregisterTarget(this);
+    }
+
+    public void OnCurrentTarget()
+    {
+        print("Play particle");
+        particleEffect?.SetActive(true);
+    }
+
+    public void OnTargetLost()
+    {
+        print("remove particle");
+        particleEffect?.SetActive(false);
     }
 }
