@@ -37759,11 +37759,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 264969988889497998, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.891
+      value: 5.137
       objectReference: {fileID: 0}
     - target: {fileID: 264969988889497998, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.606
+      value: -15.836
       objectReference: {fileID: 0}
     - target: {fileID: 264969988889497998, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: m_LocalRotation.w
@@ -37803,11 +37803,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 99f3304ed028b1a439a799859231a13d, type: 2}
     - target: {fileID: 6595864327925784271, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: UVModule.fps
-      value: 16
+      value: 20.28
       objectReference: {fileID: 0}
     - target: {fileID: 6595864327925784271, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: UVModule.cycles
-      value: 50000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 6595864327925784271, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: UVModule.timeMode
@@ -37878,6 +37878,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6595864327925784271, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595864327925784271, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].repeatInterval
       value: 23.45
       objectReference: {fileID: 0}
@@ -37898,8 +37902,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8218036726536252827, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
+      propertyPath: VelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8218036726536252827, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8218036726536252827, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
+      propertyPath: VelocityModule.orbitalZ.scalar
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8218036726536252827, guid: b6ce89795f0923d4cb75ffcd19e7f208, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
