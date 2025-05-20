@@ -29,9 +29,9 @@ public class EnemyAI : MonoBehaviour
     
     [SerializeField] private float transitionSpeed;
     private Animator _animator;
-    
+
     [Header("Particles")]
-    
+    [SerializeField] private GameObject _parryAura;
     private void Start()
     {
         _animator = GetComponent<Animator>();
@@ -142,11 +142,14 @@ public class EnemyAI : MonoBehaviour
     {
         isParryAble = true;
         
+        _parryAura.SetActive(true);
     }
 
     public void StopParryAble() // Call this to disable parry window 
     {
         isParryAble = false;
+        
+        _parryAura.SetActive(false); 
     }
 
     public void ResetAttackData() // Call this to set attack data to null

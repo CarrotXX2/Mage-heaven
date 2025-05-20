@@ -1,28 +1,22 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-
-public class Typing : MonoBehaviour
+public class Dialogue : MonoBehaviour
 {
-    [Header("Text Instellingen")]
-    public TextMeshProUGUI textField;
-    public string messageToType;
-    public float typingSpeed = 0.05f;
-    public float wobbleIntensity = 5f;
-    public float wobbleSpeed = 10f;
-    public float displayDuration = 3f;
+    [Header("Text Settings")]
+    [SerializeField] private TextMeshProUGUI textField;
+    [SerializeField] private string messageToType;
+    [SerializeField] private float typingSpeed;
+    [SerializeField] private float wobbleIntensity;
+    [SerializeField] private float wobbleSpeed;
+    [SerializeField] private float displayDuration;
 
-    [Header("Trigger Instellingen")]
-    public Collider triggerCollider;
-    public bool testTrigger = false;
-
-    [Header("Particle Volger")]
-    public ParticleSystem typingParticles;
-
+    [Header("Trigger Settings")]
+    [SerializeField] private Collider triggerCollider;
+    [SerializeField] private bool testTrigger = false;
+    
     private bool hasTriggered = false;
-    private bool typingFinished = false;
     private int currentTypedCharacters = 0;
-    private Coroutine particleMoveRoutine;
 
     void Update()
     {
@@ -50,24 +44,16 @@ public class Typing : MonoBehaviour
 
     IEnumerator TypeText()
     {
-        textField.text = ""; // Wis eerst de tekst
-        typingFinished = false;
+        textField.text = ""; 
         currentTypedCharacters = 0;
-
-        // Voeg een kleine vertraging in zodat de eerste letter niet wordt overgeslagen
-        yield return null; // Voegt vertraging toe voordat de tekst begint
-
-        // Stop eventuele vorige particle bewegingen en start een nieuwe
-        if (particleMoveRoutine != null)
-            StopCoroutine(particleMoveRoutine);
         
-        // Begin met het typen van de tekst
+        yield return null; 
+        
         for (int i = 0; i < messageToType.Length; i++)
         {
             textField.text += messageToType[i];
             currentTypedCharacters++;
-
-            // Timer om de snelheid van het typen te regelen
+            
             float timer = 0f;
             while (timer < typingSpeed)
             {
@@ -76,20 +62,12 @@ public class Typing : MonoBehaviour
                 yield return null;
             }
         }
-
-        typingFinished = true;
         yield return new WaitForSeconds(displayDuration);
 
         // Reset de tekst na de weergavetijd
         textField.text = "";
-        typingFinished = false;
+        textField.ForceMeshUpdate(); // Important: forces mesh to update and clears ghost text
         currentTypedCharacters = 0;
-
-        // Stop de particle system zodra de tekst is gewist
-        if (typingParticles != null)
-        {
-            typingParticles.Stop();
-        }
     }
 
     void AnimateWobble(int maxCharIndex = int.MaxValue)
