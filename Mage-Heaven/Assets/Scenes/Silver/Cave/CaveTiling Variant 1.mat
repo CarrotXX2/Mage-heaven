@@ -41,21 +41,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Blend: 0.15
+    - _Blend: 2.75
     - _BlendOpacity: 0.39
     - _BlendSharpness: 0.78
-    - _Blend_2: 1.05
+    - _Blend_1: 1
+    - _Blend_2: 0.97
     - _OpacityBlend: 3.31
     - _QueueControl: 0
     - _Smoothness: 0
     - _Tiling: 0.1
     - _Tiling2: 0.1
     - _Tiling2_1: 0.1
-    - _Tiling2_2: 0.097
+    - _Tiling2_2: 0.035
     m_Colors:
     - _Color: {r: 0.7056604, g: 0.7056604, b: 0.7056604, a: 0}
-    - _Color_3: {r: 0.16226411, g: 0.16226411, b: 0.16226411, a: 0}
-    - _Color_4: {r: 0.17735851, g: 0.17735851, b: 0.17735851, a: 0}
+    - _Color_3: {r: 0.6754716, g: 0.6754716, b: 0.6754716, a: 0}
+    - _Color_4: {r: 0.735849, g: 0.735849, b: 0.735849, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &461206971860328241
 MonoBehaviour:
