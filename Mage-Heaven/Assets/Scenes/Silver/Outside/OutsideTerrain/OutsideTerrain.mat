@@ -57,7 +57,7 @@ Material:
     - _QueueControl: 0
     - _Smoothness: 0
     - _Tiling: 0.1
-    - _Tiling2: 0.1
+    - _Tiling2: 0.2
     - _Tiling2_1: 0.1
     - _Tiling2_2: 0.035
     m_Colors:
