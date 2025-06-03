@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class MagicShooterAndBullet : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class MagicShooterAndBullet : MonoBehaviour
     public bool shouldShoot = false;
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public Transform splitPoint;  // Control point voor curve (optioneel)
+    public Transform[] controlPoints; // Meerdere control points
     public Transform endPoint;
     public float bulletSpeed = 5f;
     public GameObject explosionPrefab;
@@ -30,69 +31,53 @@ public class MagicShooterAndBullet : MonoBehaviour
 
         MagicBulletPart mb = bullet.AddComponent<MagicBulletPart>();
 
-        // Als splitPoint niet ingevuld, gebruiken we firePoint als control point (rechte lijn)
-        Vector3 controlPoint = splitPoint != null ? splitPoint.position : firePoint.position;
+        List<Vector3> pathPoints = new List<Vector3> { firePoint.position };
+        foreach (var cp in controlPoints)
+        {
+            if (cp != null)
+                pathPoints.Add(cp.position);
+        }
+        pathPoints.Add(endPoint.position);
 
-        mb.Init(firePoint.position, controlPoint, endPoint.position, bulletSpeed, explosionPrefab);
+        mb.Init(pathPoints.ToArray(), bulletSpeed, explosionPrefab);
     }
 
     private class MagicBulletPart : MonoBehaviour
     {
-        private Vector3 p0; // start
-        private Vector3 p1; // control point
-        private Vector3 p2; // end
-
+        private Vector3[] path;
         private float speed;
         private GameObject explosionPrefab;
 
         private float t = 0f;
         private bool hasExploded = false;
 
-        public void Init(Vector3 start, Vector3 control, Vector3 end, float spd, GameObject explosion)
+        public void Init(Vector3[] curvePoints, float spd, GameObject explosion)
         {
-            p0 = start;
-            p1 = control;
-            p2 = end;
+            path = curvePoints;
             speed = spd;
             explosionPrefab = explosion;
 
-            transform.position = p0;
+            transform.position = path[0];
         }
 
         void Update()
         {
-            if (hasExploded) return;
+            if (hasExploded || path.Length < 2) return;
 
-            // Verhoog t op basis van speed en afstand
-            // Om t in [0,1] te houden en snelheid te schalen, gebruiken we een simpele formule:
-            float dist = Vector3.Distance(p0, p2);
+            float dist = GetTotalCurveLength();
             t += (speed / dist) * Time.deltaTime;
             t = Mathf.Clamp01(t);
 
-            // Bereken Bézier positie
-            Vector3 bezierPos = CalculateQuadraticBezierPoint(t, p0, p1, p2);
-            Vector3 moveDir = (bezierPos - transform.position).normalized;
+            Vector3 curvePos = GetPointOnBezierCurve(path, t);
+            Vector3 moveDir = (curvePos - transform.position).normalized;
 
-            transform.position = bezierPos;
+            transform.position = curvePos;
 
             if (moveDir != Vector3.zero)
-            {
                 transform.rotation = Quaternion.LookRotation(-moveDir);
-            }
 
             if (t >= 1f)
-            {
                 Explode();
-            }
-        }
-
-        Vector3 CalculateQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
-        {
-            float u = 1 - t;
-            float tt = t * t;
-            float uu = u * u;
-
-            return uu * p0 + 2 * u * t * p1 + tt * p2;
         }
 
         void Explode()
@@ -101,11 +86,43 @@ public class MagicShooterAndBullet : MonoBehaviour
 
             if (explosionPrefab != null)
             {
-                GameObject explosion = Instantiate(explosionPrefab, p2, Quaternion.identity);
+                GameObject explosion = Instantiate(explosionPrefab, path[^1], Quaternion.identity);
                 Destroy(explosion, 5f);
             }
 
             Destroy(gameObject);
+        }
+
+        Vector3 GetPointOnBezierCurve(Vector3[] points, float t)
+        {
+            // De Casteljau’s algorithm voor n-punts Bézier
+            List<Vector3> temp = new List<Vector3>(points);
+
+            while (temp.Count > 1)
+            {
+                for (int i = 0; i < temp.Count - 1; i++)
+                {
+                    temp[i] = Vector3.Lerp(temp[i], temp[i + 1], t);
+                }
+                temp.RemoveAt(temp.Count - 1);
+            }
+
+            return temp[0];
+        }
+
+        float GetTotalCurveLength()
+        {
+            // Benader de lengte van de curve
+            float length = 0f;
+            Vector3 prev = path[0];
+            for (int i = 1; i <= 30; i++)
+            {
+                float sampleT = i / 30f;
+                Vector3 pos = GetPointOnBezierCurve(path, sampleT);
+                length += Vector3.Distance(prev, pos);
+                prev = pos;
+            }
+            return length;
         }
     }
 }
