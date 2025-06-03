@@ -43,11 +43,20 @@ public class PlayerSpells : MonoBehaviour
   [SerializeField] private float projectileTreshold; // Difference in distance needed for next projectile to spawn 
   
   private bool isUsingWand = false;
+  
+  [Header("Player UX")]
+  private HapticFeedback _hapticFeedback;
+
+  private void Awake()
+  {
+      _hapticFeedback = HapticFeedback.Instance;
+  }
   private void Update()
   {
       if (isUsinBarrier)
       {
-          // HandleBarrier();
+          HandleBarrier();
+          
       }
 
       if (isUsingWand)
@@ -66,6 +75,10 @@ public class PlayerSpells : MonoBehaviour
       // Barrier activation sound effect 
   }
 
+  private void HandleBarrier()
+  {
+      
+  }
   public void StopBarrier() // When ctx is cancelled call this 
   {
       isUsinBarrier = false;
@@ -160,6 +173,7 @@ public class PlayerSpells : MonoBehaviour
       currentprojectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
       
       // Hapticfeedback
+      _hapticFeedback.TriggerRight(0.7f, 0.2f);
   }
   
   private void OnTriggerEnter(Collider other)
