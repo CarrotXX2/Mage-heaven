@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3770253725595533143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7143504162445610093}
+  m_Layer: 0
+  m_Name: Shoot point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7143504162445610093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3770253725595533143}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0002, y: 0, z: -0.5491}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4040913591482712423}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5838930172845180622
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,8 +145,8 @@ MonoBehaviour:
   _rightHand: {fileID: 7277802327528778794}
   _parrySpeedThreshold: 4
   _maxVerticalMovement: 10
-  ikTarget: {fileID: 0}
-  ikTargetPivot: {fileID: 0}
+  ikTarget: {fileID: 5838930172845180622}
+  ikTargetPivot: {fileID: 8507373500857343389}
 --- !u!114 &7478507174689799449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,15 +172,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a0e29d96e1030429767ec10096b543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rightHand: {fileID: 0}
-  _rbRightHand: {fileID: 0}
+  _rightHand: {fileID: 7277802327528778794}
   barrierCost: 0
   barrier: {fileID: 0}
-  _projectile: {fileID: 0}
+  _projectile: {fileID: 6342598393600508203, guid: 4d8ea76a42d954e4f9ee32f35e32c96a, type: 3}
   _fireProjectile: {fileID: 0}
-  _projectileSpawnPoint: {fileID: 0}
-  lastProjectileSpawn: {fileID: 0}
-  projectileTreshold: 0
+  _projectileSpawnPoint: {fileID: 7143504162445610093}
+  projectileTreshold: 0.5
 --- !u!1001 &699530128198700609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,7 +233,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3576156563365662502, guid: 40866219e5820614a9be8e99da538653, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7143504162445610093}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40866219e5820614a9be8e99da538653, type: 3}
 --- !u!4 &4040913591482712423 stripped
@@ -1341,13 +1373,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rightHand: {fileID: 0}
-  _rbRightHand: {fileID: 0}
   barrierCost: 0
   barrier: {fileID: 0}
   _projectile: {fileID: 0}
   _fireProjectile: {fileID: 0}
   _projectileSpawnPoint: {fileID: 0}
-  lastProjectileSpawn: {fileID: 0}
   projectileTreshold: 0
 --- !u!114 &918086696404025429
 MonoBehaviour:

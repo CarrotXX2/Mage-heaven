@@ -17,7 +17,7 @@ public class PlayerSpells : MonoBehaviour
 
   [Header("General")] 
   [SerializeField] private Transform _rightHand;
-  [SerializeField] private Rigidbody _rbRightHand; // Give the projectile velocity of player 
+ //  [SerializeField] private Rigidbody _rbRightHand; // Give the projectile velocity of player 
   
   private Transform target;
   
@@ -28,19 +28,19 @@ public class PlayerSpells : MonoBehaviour
   private bool isUsinBarrier = false;
 
   [Header("Wand Spells")] 
+  [SerializeField] private GameObject _projectile;
+  [SerializeField] private GameObject _fireProjectile;
+  [SerializeField] private Transform _projectileSpawnPoint;
+  private Transform lastProjectileSpawn; // Keep track of the last point that shot a projectile
+  [SerializeField] private float projectileTreshold; // Difference in distance needed for next projectile to spawn 
+  
   private WandStates wandState;
   
   private bool _litTorch = false;
   
   // I want the wand to cast projectiles through motion to make the game feel more interactive
   // The projectiles will have homing based on what target was looked at while casting
-  [SerializeField] private GameObject _projectile;
-  [SerializeField] private GameObject _fireProjectile;
   
-  [SerializeField] private Transform _projectileSpawnPoint;
-  
-  [SerializeField] private Transform lastProjectileSpawn; // Keep track of the last point that shot a projectile
-  [SerializeField] private float projectileTreshold; // Difference in distance needed for next projectile to spawn 
   
   private bool isUsingWand = false;
   
@@ -79,6 +79,7 @@ public class PlayerSpells : MonoBehaviour
   {
       
   }
+  
   public void StopBarrier() // When ctx is cancelled call this 
   {
       isUsinBarrier = false;
@@ -170,7 +171,7 @@ public class PlayerSpells : MonoBehaviour
       currentprojectile.GetComponent<Projectile>().target = gameObject.GetComponent<TargetFinder>().FindBestTarget();
       
       // Initial force from swinging the wand 
-      currentprojectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
+    //  currentprojectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
       
       // Hapticfeedback
       _hapticFeedback.TriggerRight(0.7f, 0.2f);

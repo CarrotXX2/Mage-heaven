@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {   
     public Transform target;
-    public Vector3 inheritedVelocity;
+    [HideInInspector] public Vector3 inheritedVelocity;
 
     [SerializeField] private float _homingStrength;
     [SerializeField] private float _maxSpeed;
