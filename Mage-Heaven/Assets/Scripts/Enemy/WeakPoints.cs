@@ -5,9 +5,9 @@ using UnityEngine;
 public class WeakPoints : MonoBehaviour, IDamageable
 {
     [SerializeField] private EnemyHealth enemyHealth;
-    private int health;
+    [SerializeField] private int health;
     
-    private void TakeDamage()
+    public void TakeDamage()
     {
         health --;
 
