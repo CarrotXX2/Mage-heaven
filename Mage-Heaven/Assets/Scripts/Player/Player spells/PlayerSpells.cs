@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public enum WandStates
+
+// We Won't use the torch mechanic anymore, but some of the code might still containt its logic
+public enum WandStates  
 {
     ArcaneProjectile,
     Torch,
@@ -17,7 +20,7 @@ public class PlayerSpells : MonoBehaviour
 
   [Header("General")] 
   [SerializeField] private Transform _rightHand;
- //  [SerializeField] private Rigidbody _rbRightHand; // Give the projectile velocity of player 
+  //  [SerializeField] private Rigidbody _rbRightHand; // Give the projectile velocity of player 
   
   private Transform target;
   
@@ -34,7 +37,7 @@ public class PlayerSpells : MonoBehaviour
   private Transform lastProjectileSpawn; // Keep track of the last point that shot a projectile
   [SerializeField] private float projectileTreshold; // Difference in distance needed for next projectile to spawn 
   
-  private WandStates wandState;
+  private WandStates wandState = WandStates.ArcaneProjectile;
   
   private bool _litTorch = false;
   
@@ -46,7 +49,7 @@ public class PlayerSpells : MonoBehaviour
   
   [Header("Player UX")]
   private HapticFeedback _hapticFeedback;
-
+  
   private void Awake()
   {
       _hapticFeedback = HapticFeedback.Instance;
@@ -113,6 +116,7 @@ public class PlayerSpells : MonoBehaviour
 
   public void UseWand()
   {
+      print("Shoot");
       isUsingWand = true;
 
       switch (wandState)
@@ -127,7 +131,7 @@ public class PlayerSpells : MonoBehaviour
           case WandStates.ArcaneProjectile:
               lastProjectileSpawn = _rightHand;
               ShootProjectile(_projectile);
-              
+
               // Increase magic aura to notify player you can shoot projectiles 
               // magic aura sfx 
               break;
@@ -136,9 +140,10 @@ public class PlayerSpells : MonoBehaviour
 
   public void StopWand()
   {
-      isUsingWand = false;
+      print("Stop");
+        isUsingWand = false;
   }
-
+  
   private void HandleWand()
   { 
       switch (wandState)
@@ -171,7 +176,7 @@ public class PlayerSpells : MonoBehaviour
       currentprojectile.GetComponent<Projectile>().target = gameObject.GetComponent<TargetFinder>().FindBestTarget();
       
       // Initial force from swinging the wand 
-    //  currentprojectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
+      // currentprojectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
       
       // Hapticfeedback
       _hapticFeedback.TriggerRight(0.7f, 0.2f);

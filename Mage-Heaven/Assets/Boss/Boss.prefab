@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7293579974020861096}
   - component: {fileID: 8131201056513242215}
+  - component: {fileID: 7509655010283727863}
   m_Layer: 0
   m_Name: 'Head IK '
   m_TagString: Untagged
@@ -78,14 +79,34 @@ MonoBehaviour:
     m_MaxLimit: 180
     m_AimAxis: 4
     m_UpAxis: 2
-    m_WorldUpType: 0
-    m_WorldUpObject: {fileID: 0}
+    m_WorldUpType: 2
+    m_WorldUpObject: {fileID: 6735319848578167102}
     m_WorldUpAxis: 2
     m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
       y: 1
-      z: 1
+      z: 0
+--- !u!1818360609 &7509655010283727863
+RotationConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3535243584198163014}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_Active: 0
+  m_IsLocked: 0
+  m_Sources:
+  - sourceTransform: {fileID: 0}
+    weight: 1
 --- !u!1 &3632926101991624408
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +559,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: baec15038bc952146a816642ba405ddc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5479138876558562424}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: baec15038bc952146a816642ba405ddc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1987902875827043005}
     - targetCorrespondingSourceObject: {fileID: 1427564092133216371, guid: baec15038bc952146a816642ba405ddc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 439252475331149744}
@@ -618,6 +642,29 @@ MonoBehaviour:
   - m_Rig: {fileID: 439252475331149744}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &1987902875827043005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6211441468307139460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f1957247ef2354084c39073a40fc15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacks: []
+  _timeBetweenAttacksMin: 3
+  _timeBetweenAttacksMax: 7
+  rightArmIK: {fileID: 7398391158245413781}
+  _ikTarget: {fileID: 0}
+  _ikHint: {fileID: 0}
+  _maxIKDistance: 2
+  _ikFadeDuration: 1
+  transitionSpeed: 5
+  isParryAble: 0
+  _parryAura: {fileID: 0}
 --- !u!4 &6735319848578167102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: baec15038bc952146a816642ba405ddc, type: 3}

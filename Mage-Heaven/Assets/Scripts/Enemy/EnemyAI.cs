@@ -3,7 +3,8 @@ using UnityEngine.Animations.Rigging;
 
 public class EnemyAI : MonoBehaviour
 {
-    [Header("Attack Data")]
+    [Header("Attack Data")] 
+    private bool startFight;
     [SerializeField] private EnemyAttackData[] attacks;
     private EnemyAttackData _currentAttack;
 
@@ -101,6 +102,11 @@ public class EnemyAI : MonoBehaviour
         rightArmIK.weight = Mathf.MoveTowards(currentWeight, targetWeight, transitionSpeed * Time.deltaTime);
     }
 
+    public void StartFight()
+    {
+        startFight = true;
+    }
+    
     // Called by animation events
     public void StartPunch() => _isPunching = true;
     public void PullBackPunch() => _isPunching = false;

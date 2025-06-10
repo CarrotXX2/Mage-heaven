@@ -1,5 +1,54 @@
 {
     "name": "Player Inputs",
-    "maps": [],
+    "maps": [
+        {
+            "name": "Player Inputs",
+            "id": "90c911c3-00fd-428d-a523-3599048c7146",
+            "actions": [
+                {
+                    "name": "Shoot wand",
+                    "type": "Button",
+                    "id": "ff488aaf-eebd-4969-a51a-bbeda25bd411",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Barrier",
+                    "type": "Button",
+                    "id": "b80785d7-e196-4541-a06d-f74aea2654ce",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8e1df9fe-6722-4393-94bc-a672db5082ce",
+                    "path": "<XRInputV1::Oculus::MetaQuestTouchPlusControllerOpenXR>{RightHand}/triggerpressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot wand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b86fd64-89a6-4917-aa0c-accc1f34bfbf",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Barrier",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
     "controlSchemes": []
 }

@@ -14,15 +14,20 @@ public class Projectile : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _rb.velocity = inheritedVelocity;
     }
-
-    private void FixedUpdate() // Use FixedUpdate for physics
+    private void FixedUpdate()
     {
-        if (target == null) return;
-
-        Vector3 directionToTarget = (target.position - transform.position).normalized;
-        Vector3 force = directionToTarget * _homingStrength;
-
-        _rb.AddForce(force);
+        if (target != null)
+        {
+            Vector3 directionToTarget = (target.position - transform.position).normalized;
+            Vector3 force = directionToTarget * _homingStrength;
+            _rb.AddForce(force);
+        }
+        else
+        {
+            // Move forward in the projectile's facing direction
+            Vector3 forwardForce = transform.forward * _homingStrength;
+            _rb.AddForce(forwardForce);
+        }
 
         // Optional: Clamp speed
         if (_rb.velocity.magnitude > _maxSpeed)

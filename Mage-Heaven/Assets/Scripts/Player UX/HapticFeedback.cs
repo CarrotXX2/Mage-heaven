@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 
 public class HapticFeedback : MonoBehaviour
 {
     public static HapticFeedback Instance { get; private set; }
 
-    public XRBaseController leftController;
-    public XRBaseController rightController;
+    public HapticImpulsePlayer leftController;
+    public HapticImpulsePlayer rightController;
 
     private void Awake()
     {
@@ -24,11 +25,11 @@ public class HapticFeedback : MonoBehaviour
 
     public void TriggerLeft(float amplitude, float duration)
     {
-        TriggerHaptic(leftController, amplitude, duration);
+        leftController.SendHapticImpulse(amplitude, duration);
     }
 
     public void TriggerRight(float amplitude, float duration)
     {
-        TriggerHaptic(rightController, amplitude, duration);
+        rightController.SendHapticImpulse(amplitude, duration);
     }
 }
