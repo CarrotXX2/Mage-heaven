@@ -38,7 +38,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Alpha: 6.9
+    - _Alpha: 10
     - _QueueControl: 0
     m_Colors:
     - _Color: {r: 0.3207547, g: 0.20292339, b: 0.101067975, a: 0}
