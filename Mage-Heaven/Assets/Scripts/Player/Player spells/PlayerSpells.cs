@@ -45,10 +45,10 @@ public class PlayerSpells : MonoBehaviour
   // The projectiles will have homing based on what target was looked at while casting
   
   
-  private bool isUsingWand = false;
+  [SerializeField] private bool isUsingWand = false;
   
   [Header("Player UX")]
-  private HapticFeedback _hapticFeedback;
+  [SerializeField] private HapticFeedback _hapticFeedback;
   
   private void Awake()
   {
@@ -170,7 +170,7 @@ public class PlayerSpells : MonoBehaviour
 
   private void ShootProjectile(GameObject projectile)
   {
-      GameObject currentprojectile = Instantiate(projectile, _projectileSpawnPoint.position, quaternion.identity);
+      GameObject currentprojectile = Instantiate(projectile, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
       
       // Find Suitable target
       currentprojectile.GetComponent<Projectile>().target = gameObject.GetComponent<TargetFinder>().FindBestTarget();
@@ -179,7 +179,7 @@ public class PlayerSpells : MonoBehaviour
       // currentprojectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
       
       // Hapticfeedback
-      _hapticFeedback.TriggerRight(0.7f, 0.2f);
+      // _hapticFeedback.TriggerRight(0.7f, 0.2f);
   }
   
   private void OnTriggerEnter(Collider other)

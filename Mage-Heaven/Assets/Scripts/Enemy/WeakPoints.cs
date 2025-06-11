@@ -7,6 +7,7 @@ public class WeakPoints : MonoBehaviour, IDamageable
 {
     [SerializeField] private EnemyHealth enemyHealth;
     [SerializeField] private WeakPoints secondWeakPoint;
+    [SerializeField] private GameObject weakPointObj;
     [SerializeField] private int health;
     
     public bool isBroken = false;

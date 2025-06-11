@@ -67,7 +67,9 @@ public class EnemyAI : MonoBehaviour
     {
         float totalWeight = 0f;
         foreach (var attack in attacks)
+        {
             totalWeight += attack.weight;
+        }
 
         float randomValue = Random.Range(0, totalWeight);
         float cumulativeWeight = 0f;

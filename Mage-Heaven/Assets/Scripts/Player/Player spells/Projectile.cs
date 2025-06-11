@@ -7,12 +7,13 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private float _homingStrength;
     [SerializeField] private float _maxSpeed;
-    
+    [SerializeField] private float lifeTime;
     private Rigidbody _rb;
     private void Start() // Initialize object 
     {
         _rb = GetComponent<Rigidbody>();
-        _rb.velocity = inheritedVelocity;
+        Destroy(gameObject, lifeTime);
+        //_rb.velocity = inheritedVelocity;
     }
     private void FixedUpdate()
     {

@@ -29,7 +29,9 @@ public class PlayerHealth : MonoBehaviour
      }
      public void OnTriggerEnter(Collider other)
      {
-          // if(other = boss )
-          TakeDamage();
+          if(other.transform.CompareTag("Boss"))
+          {
+                TakeDamage();
+          }
      }
 }

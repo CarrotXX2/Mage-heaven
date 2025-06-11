@@ -22,6 +22,7 @@ public class MagicShooterAndBullet : MonoBehaviour
             Shoot();
             shouldShoot = false;
             isShooting = false;
+            
         }
     }
 
