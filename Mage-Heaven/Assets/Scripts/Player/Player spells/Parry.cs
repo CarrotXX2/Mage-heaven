@@ -85,7 +85,7 @@ public class Parry : MonoBehaviour
     #endregion
     private void PerformParry(ParryDirection direction)
     {
-        if (!_currentEnemyAI.isParryAble) return;
+       // if (!_currentEnemyAI.isParryAble) return;
         
         if (direction == ParryDirection.Left)
         {

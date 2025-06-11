@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5007180672945103202, guid: 84aa8133b4bd1dd4c95365d105df86fc, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 04dab71bc004fcb40bea406dd859180d, type: 2}
+    - target: {fileID: 2602282992296930141, guid: 84aa8133b4bd1dd4c95365d105df86fc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403994760039692153, guid: 84aa8133b4bd1dd4c95365d105df86fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6211441468307139460, guid: 84aa8133b4bd1dd4c95365d105df86fc, type: 3}
       propertyPath: m_Name
-      value: Boss (2) Variant
+      value: Boss Stage 2
       objectReference: {fileID: 0}
     - target: {fileID: 6735319848578167102, guid: 84aa8133b4bd1dd4c95365d105df86fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50,6 +62,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6735319848578167102, guid: 84aa8133b4bd1dd4c95365d105df86fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338678259020130540, guid: 84aa8133b4bd1dd4c95365d105df86fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9138304790811255496, guid: 84aa8133b4bd1dd4c95365d105df86fc, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

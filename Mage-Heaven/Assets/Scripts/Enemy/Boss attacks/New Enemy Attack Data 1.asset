@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b607733bf27ecb4fae0a4d0fb56d4c8, type: 3}
   m_Name: New Enemy Attack Data 1
   m_EditorClassIdentifier: 
-  name: 
+  name: Shake
   clip: {fileID: 0}
   weight: 0
   parryAble: 0

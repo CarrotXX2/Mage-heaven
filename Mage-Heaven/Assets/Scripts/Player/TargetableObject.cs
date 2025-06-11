@@ -20,12 +20,20 @@ public class TargetableObject : MonoBehaviour, ITargetable
     public void OnCurrentTarget()
     {
         print("Play particle");
-        particleEffect?.SetActive(true);
+
+        if (particleEffect != null)
+        {
+            particleEffect?.SetActive(true);
+        }
     }
 
     public void OnTargetLost()
     {
         print("remove particle");
-        particleEffect?.SetActive(false);
+
+        if (particleEffect != null)
+        {
+             particleEffect?.SetActive(false);
+        }
     }
 }

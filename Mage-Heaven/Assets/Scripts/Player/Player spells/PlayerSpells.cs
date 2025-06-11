@@ -34,7 +34,7 @@ public class PlayerSpells : MonoBehaviour
   [SerializeField] private GameObject _projectile;
   [SerializeField] private GameObject _fireProjectile;
   [SerializeField] private Transform _projectileSpawnPoint;
-  private Transform lastProjectileSpawn; // Keep track of the last point that shot a projectile
+  private Vector3 lastProjectileSpawn; // Keep track of the last point that shot a projectile
   [SerializeField] private float projectileTreshold; // Difference in distance needed for next projectile to spawn 
   
   private WandStates wandState = WandStates.ArcaneProjectile;
@@ -129,7 +129,7 @@ public class PlayerSpells : MonoBehaviour
               // Fire sfx loop
               break;
           case WandStates.ArcaneProjectile:
-              lastProjectileSpawn = _rightHand;
+              lastProjectileSpawn = _rightHand.position;
               ShootProjectile(_projectile);
 
               // Increase magic aura to notify player you can shoot projectiles 
@@ -160,9 +160,9 @@ public class PlayerSpells : MonoBehaviour
   // When wand is being used and player waves with the wand instantiate projectiles 
   private void WandMotionDetection(GameObject projectile)
   {
-     float distance = Vector3.Distance(lastProjectileSpawn.position, _rightHand.position);
-
-     if (distance < projectileTreshold)
+     float distance = Vector3.Distance(lastProjectileSpawn, _rightHand.position);
+     print(distance);
+     if (distance >= projectileTreshold)
      {
          ShootProjectile(projectile);
      }
@@ -175,6 +175,8 @@ public class PlayerSpells : MonoBehaviour
       // Find Suitable target
       currentprojectile.GetComponent<Projectile>().target = gameObject.GetComponent<TargetFinder>().FindBestTarget();
       
+      
+      lastProjectileSpawn = _rightHand.position;
       // Initial force from swinging the wand 
       // currentprojectile.GetComponent<Projectile>().inheritedVelocity = _rbRightHand.velocity;
       

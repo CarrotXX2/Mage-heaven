@@ -5,16 +5,17 @@ using UnityEngine.InputSystem;
 
 public class Teleport : MonoBehaviour
 {
-    public void TeleportPlayer(InputAction.CallbackContext ctx)
+    [SerializeField] private GameObject player;
+    public void TeleportPlayer()
     {
-        if (!ctx.started) return; 
-        
         Transform teleportPoint = gameObject.GetComponent<TargetFinder>().FindBestTarget();
         print("Tried to tp");
         
+        if (teleportPoint == null) return;
+        
         if (teleportPoint.CompareTag("TeleportPoint"))
         {
-            gameObject.transform.position = teleportPoint.transform.position;
+            player.transform.position = teleportPoint.transform.position;
         }
     }
 }

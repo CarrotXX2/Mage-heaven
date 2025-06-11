@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -9,6 +10,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float lifeTime;
     private Rigidbody _rb;
+    
+    [SerializeField] private GameObject _impactEffect;
     private void Start() // Initialize object 
     {
         _rb = GetComponent<Rigidbody>();
@@ -42,6 +45,8 @@ public class Projectile : MonoBehaviour
         if (other.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage();
+            Instantiate(_impactEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
     }
 }

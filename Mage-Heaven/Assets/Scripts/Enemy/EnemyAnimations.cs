@@ -16,7 +16,7 @@ public class EnemyAnimations : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
-    private void Update()
+   /* private void Update()
     {
         // Smoothly increase/decrease influence
         float targetWeight = shouldLookAtPlayer ? 1f : 0f;
@@ -33,7 +33,7 @@ public class EnemyAnimations : MonoBehaviour
         {
             shouldLookAtPlayer = true;
         }
-    }
+    }*/
 
     public void PlayAnimation(string animation)
     {

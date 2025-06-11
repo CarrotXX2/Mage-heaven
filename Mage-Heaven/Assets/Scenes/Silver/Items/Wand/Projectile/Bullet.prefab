@@ -4940,6 +4940,7 @@ MonoBehaviour:
   _homingStrength: 10
   _maxSpeed: 15
   lifeTime: 3.5
+  _impactEffect: {fileID: 7884900897889221066, guid: e0ef014362fa5884d97900d112369c2c, type: 3}
 --- !u!54 &-2754468622736452899
 Rigidbody:
   m_ObjectHideFlags: 0

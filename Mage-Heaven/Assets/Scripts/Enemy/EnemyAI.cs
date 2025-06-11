@@ -7,7 +7,15 @@ public class EnemyAI : MonoBehaviour
     private bool startFight;
     [SerializeField] private EnemyAttackData[] attacks;
     private EnemyAttackData _currentAttack;
+    
+    [Header("Projectile Attack")]
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform throwOrigin; // Hand or spawn point
+    [SerializeField] private Transform playerTarget;
+    [SerializeField] private float projectileForce;
 
+    private GameObject currentThrownObject;
+    
     [Header("Timers")]
     [SerializeField] private float _timeBetweenAttacksMin;
     [SerializeField] private float _timeBetweenAttacksMax;
@@ -41,21 +49,17 @@ public class EnemyAI : MonoBehaviour
 
         if (_attackTimer >= _timeBetweenAttacks)
         {
-            // PerformAttack();
+            PerformAttack();
         }
 
         HandleIK();
     }
 
-    public void Test()
-    {
-        PerformAttack();
-        _isPunching = true;
-    }
-
     private void PerformAttack()
     {
         _timeBetweenAttacks = Random.Range(_timeBetweenAttacksMin, _timeBetweenAttacksMax);
+        _attackTimer = 0;
+        
         EnemyAttackData data = GetRandomWeightedAttack();
         _currentAttack = data;
 
@@ -84,6 +88,30 @@ public class EnemyAI : MonoBehaviour
         return null;
     }
 
+    public void GrabRock()
+    {
+        if (projectilePrefab == null || throwOrigin == null || playerTarget == null)
+        {
+            Debug.LogWarning("Missing projectilePrefab, throwOrigin, or playerTarget.");
+            return;
+        }
+
+        currentThrownObject = Instantiate(projectilePrefab, throwOrigin.position, Quaternion.identity);
+    }
+    public void ThrowProjectile()
+    {
+        Rigidbody rb = currentThrownObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 direction = (playerTarget.position - throwOrigin.position).normalized;
+            rb.velocity = direction * projectileForce;
+        }
+        else
+        {
+            Debug.LogWarning("Projectile prefab is missing a Rigidbody.");
+        }
+    }
+    
     private void HandleIK()
     {
         float distance = Vector3.Distance(rightArmIK.data.tip.position, _ikTarget.position);
@@ -104,6 +132,11 @@ public class EnemyAI : MonoBehaviour
         rightArmIK.weight = Mathf.MoveTowards(currentWeight, targetWeight, transitionSpeed * Time.deltaTime);
     }
 
+    public void Stagger()
+    {
+        _attackTimer = 0;
+        _timeBetweenAttacks = Random.Range(_timeBetweenAttacksMin, _timeBetweenAttacksMax);
+    }
     public void StartFight()
     {
         startFight = true;
